@@ -44,7 +44,15 @@ __Create 3 simple buttons with icon and text to: <br>
 
 Before starting work on the widgets, I initially started by craeting the class ShopItem as shown below:
 
-https://github.com/PascalPahlevi/PBP-Inventory-Assignment/blob/46dcb67b4c548dc554e39839d6cf0e7c3003e2a3/lib/menu.dart#L70C1-L76 
+```py
+class ShopItem {
+  final String name;
+  final IconData icon;
+  final Color color;
+
+  ShopItem(this.name, this.icon, this.color);
+}
+```
 
 This class basically determines the variables that will be used when making the widget class alongside their specific attributes. After this was done, I was able to start working on the widget class as shown below:
 
