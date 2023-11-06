@@ -37,9 +37,9 @@ In Flutter, widgets can be categorized into two, those being stateless and state
 10. Icon: Displays an icon.
 
 ##  Explain how you implemented the checklist above step-by-step (not just following the tutorial).
-__Create 3 simple buttons with icon and text to:
- View the list of items (View Items)
- Add Item (Add Item)
+__Create 3 simple buttons with icon and text to: <br>
+ View the list of items (View Items) <br>
+ Add Item (Add Item) <br>
  Logout (Logout)__ <br>
 
 
