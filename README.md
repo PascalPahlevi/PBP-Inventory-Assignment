@@ -42,4 +42,15 @@ __Create 3 simple buttons with icon and text to: <br>
  Add Item (Add Item) <br>
  Logout (Logout)__ <br>
 
+Before starting work on the widgets, I initially started by craeting the class ShopItem as shown below:
+```py
+class ShopItem {
+  final String name;
+  final IconData icon;
+  final Color color;
+
+  ShopItem(this.name, this.icon, this.color);
+}
+```
+
 
