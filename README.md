@@ -173,5 +173,43 @@ class ShopCard extends StatelessWidget {
 
 This class was created so to ensure that the buttons itself actually worked as seen by the use of 'onTap: () {...}' which makes it so that when the buttons are clicked, a message will pop up saying that the button was clicked. This message was also made so that it is placed inside a container.
 
+# Assignment 8
+
+## Explain the difference between Navigator.push() and Navigator.pushReplacement(), accompanied by examples of the correct usage of both methods!
+Navigator.push() is used to navigate from one screen to another by pushing the new screen on top of the stack. This allows us to still go back to previous screens. Navigator.pushReplacement() on the other hand is also used to navigate from one screen to another, however, it replaces the current screen in the stack with a new one.
+
+## Explain each layout widget in Flutter and their respective usage contexts!
+1. Container
+Usage: A versatile widget used for layout, decoration, alignment, and constraints.
+Context: It's the most basic and flexible widget used to contain other widgets, providing control over their appearance and layout properties.
+2. Row
+Usage: Arranges its children widgets horizontally in a single line.
+Context: Useful for creating horizontal layouts, such as button rows, navigation bars, or any elements that need to be placed side by side.
+3. Column
+Usage: Arranges its children widgets vertically in a single line.
+Context: Perfect for creating vertical layouts, like forms, lists, or any stacked elements.
+4. Stack
+Usage: Stacks its children widgets on top of each other.
+Context: Ideal for overlaying widgets, creating complex UIs where widgets need to overlap or be positioned at specific coordinates within the screen.
+5. ListView
+Usage: Displays a scrollable list of children widgets.
+Context: Great for long lists of data or dynamic content that exceeds the screen size, providing scrolling functionality.
+6. GridView
+Usage: Displays a scrollable grid of children widgets in rows and columns.
+Context: Perfect for arranging items in a grid layout, such as image galleries, product displays, or any structured content.
+7. Wrap
+Usage: Arranges its children widgets in multiple lines if needed.
+Context: Useful when you have a dynamic number of elements and want them to flow across lines automatically instead of overflowing the available space.
+8. Expanded
+Usage: Expands a child widget to fill the available space along the main axis in a Row, Column, or Flex.
+Context: Helps in controlling how much space a child widget takes within a layout.
+9. SizedBox
+Usage: Creates a box with a specific size or enforces specific constraints on its child widget.
+Context: Useful for adding fixed sizes or constraints to widgets, like adding spacing between elements or enforcing a certain size.
+10. ConstrainedBox
+Usage: Applies additional constraints to its child widget.
+Context: Helpful for imposing specific constraints, such as minimum and maximum sizes, on its child widget.
+
+## 
 
 
