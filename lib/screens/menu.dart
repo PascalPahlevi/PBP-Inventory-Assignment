@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pbp_inventory/widgets/left_drawer.dart';
+import 'package:pbp_inventory/screens/shoplist_form.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
@@ -25,7 +27,10 @@ class MyHomePage extends StatelessWidget {
         title: const Text(
           'PBP Inventory',
         ),
+        backgroundColor: Colors.indigo,
+        foregroundColor: Colors.white,
       ),
+      drawer: const LeftDrawer(),
       body: SingleChildScrollView(
         // Scrolling wrapper widget
         child: Padding(
@@ -83,7 +88,7 @@ class ShopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: item.color,
+      color: Colors.indigo,
       child: InkWell(
         // Responsive touch area
         onTap: () {
@@ -91,7 +96,12 @@ class ShopCard extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text("You clicked the ${item.name} button!")));
+                content: Text("You pressed the ${item.name} button!")));
+
+          if (item.name == "Add Items") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ShopFormPage()));
+          }
         },
         child: Container(
           // Container to hold Icon and Text
@@ -119,10 +129,3 @@ class ShopCard extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
