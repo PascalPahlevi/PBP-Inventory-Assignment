@@ -210,6 +210,308 @@ Context: Useful for adding fixed sizes or constraints to widgets, like adding sp
 Usage: Applies additional constraints to its child widget.
 Context: Helpful for imposing specific constraints, such as minimum and maximum sizes, on its child widget.
 
-## 
+## List the form input elements you used in this assignment and explain why you used these input elements!
+There are three form input elements that were used in the assignment:
+1. Product Name Field: This input element collects the name of the product and it is needed to allow users to input the name of the product they wish to add.
+
+2. Amount Field: This input element collects the quantity of the product and is needed to ensure that users are able to determine the amount of the product available in the inventory.
+
+3. Description Field: This input element collects the description of the product and is needed to allow users to describe the product they wish to add into the inventory.
+
+## How is clean architecture implemented in a Flutter application?
+Clean architecture in a Flutter application involves restructuring the app's code, separating them into different layers/folders based on which they are categorized in. This makes it easier to maintain the code as well as test it.
+
+## Explain how you implemented the checklist above step-by-step! (not just following the tutorial)
+
+__Use at least three input elements: name, amount, description. Add input elements according to the model in your Django assignment.__
+
+To do this, I had to create new variables as shown below:
+```py
+class _ShopFormPageState extends State<ShopFormPage> {
+  final _formKey = GlobalKey<FormState>();
+  String _name = "";
+  int _amount = 0;
+  String _description = "";
+```
+
+__Have a Save button. <br>
+ Validate each input element in the form with the following requirements: <br>
+ Each input element must not be empty. <br>
+ Each input element must contain data of the same data type as its model attribute.__
+
+All of the tasks above can be seen in the code below:
+
+```py
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Center(
+            child: Text(
+              'Add Item Form',
+            ),
+          ),
+          backgroundColor: Colors.indigo,
+          foregroundColor: Colors.white,
+        ),
+        body: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Product Name",
+                        labelText: "Product Name",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                      onChanged: (String? value) {
+                        setState(() {
+                          _name = value!;
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return "Name cannot be empty!";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Amount",
+                        labelText: "Amount",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                      onChanged: (String? value) {
+                        setState(() {
+                          _amount = int.parse(value!);
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return "Amount cannot be empty!";
+                        }
+                        if (int.tryParse(value) == null) {
+                          return "Amount must be a number!";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Description",
+                        labelText: "Description",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                      onChanged: (String? value) {
+                        setState(() {
+                          _description = value!;
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return "Description cannot be empty!";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.indigo),
+                        ),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title:
+                                      const Text('Product Succesfully saved'),
+                                  content: SingleChildScrollView(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Name: $_name'),
+                                        Text('Amount: $_amount'),
+                                        Text('Description: $_description')
+                                      ],
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text('OK'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            _formKey.currentState!.reset();
+                          }
+                        },
+                        child: const Text(
+                          "Save",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]))));
+  }
+```
+ 
+__Direct users to the new item addition form page when clicking the Add Item button on the main page. <br>
+ Display data as entered in the form in a pop-up after clicking the Save button on the new item addition page.__
+
+In order to direct users to the new item addition the code below was added in the ShopCard Class in menu.dart:
+```py
+if (item.name == "Add Items") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ShopFormPage()));
+          }
+```
+
+With this code, when the Add Items button is clicked, it will redirect to the ShopFormPage. In the case of the popup the code below was added in shoplist_form.dart:
+```py
+onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title:
+                                      const Text('Product Succesfully saved'),
+                                  content: SingleChildScrollView(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Name: $_name'),
+                                        Text('Amount: $_amount'),
+                                        Text('Description: $_description')
+                                      ],
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text('OK'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            _formKey.currentState!.reset();
+                          }
+                        },
+```
+With this code, if the save button is clicked, a popup containing information on the product, amount, and description will appear.
+
+__Create a drawer in the application with the following requirements: <br>
+ The drawer must have at least two options: Home and Add Item. <br>
+ When choosing the Home option, the application will direct the user to the main page. <br>
+ When choosing the Add Item option, the application will direct the user to the new item addition form page.__
+
+To implement the left drawer the code belows was implemented in a new file with the name left_drawer.dart:
+```py
+import 'package:flutter/material.dart';
+import 'package:pbp_inventory/screens/menu.dart';
+import 'package:pbp_inventory/screens/shoplist_form.dart';
+
+class LeftDrawer extends StatelessWidget {
+  const LeftDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.indigo,
+            ),
+            child: Column(
+              children: [
+                Text(
+                  'The Krusty Krab',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                Padding(padding: EdgeInsets.all(10)),
+                Text(
+                  'Write all your shopping needs here!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.home_outlined),
+            title: const Text('Home Page'),
+            // redirect to MyHomePage
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyHomePage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_shopping_cart),
+            title: const Text('Add Items'),
+            // redirect to ShopFormPage
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ShopFormPage(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
 
 
