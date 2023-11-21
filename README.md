@@ -555,7 +555,7 @@ Widgets Used:
 
 ## Explain how you implement the checklist above step by step! (not just following the tutorial).
 
-__Create a login page in the Flutter project.__
+__Create a login page in the Flutter project.__ <br>
 ```py
 import 'package:pbp_inventory/screens/menu.dart';
 import 'package:flutter/material.dart';
@@ -675,7 +675,7 @@ class _LoginPageState extends State<LoginPage> {
 
 As seen above, the code simply creats a functional login page, allowing users to access the app. In order to do so, the login page was made to connect to a previously created Django website, where data on registered users already exist, Hence, using 'import package:pbp_django_auth/pbp_django_auth.dart' and 'import package:provider/provider.dart', users would be able to login to the app with an account that was created on the Django website.
 
-__Integrate the Django authentication system with the Flutter project__
+__Integrate the Django authentication system with the Flutter project__ <br>
 In order to do this, a few additions had to be made in the code for the Django application. For instance, a new app going by authentication was created where in this line of code was added to 'authentication/views.py':
 ```py
 from django.shortcuts import render
@@ -746,7 +746,7 @@ class MyApp extends StatelessWidget {
   }
 }
 ```
-__Create a custom model according to your Django application project.__
+__Create a custom model according to your Django application project.__ <br>
 In creating the custom model, the JSON data created from the Django application was required through the JSON endpoint. Afterords, the data was pasted into the 'Quicktype' website, converting the JSON into the Dart language. The model can be seen below:
 ```py
 // To parse this JSON data, do
@@ -819,7 +819,7 @@ class Fields {
 }
 ```
 __Create a page containing a list of all items available at the JSON endpoint in Django that you have deployed.__
-__Display the name, amount, and description of each item on this page.__
+__Display the name, amount, and description of each item on this page.__ <br>
 To create this page, a new dart file was created by the name of 'list_product.dart' which is used to display all the items added. This page will also display the name, amount, and description of each item on the page which can be seen in the code below:
 ```py
 import 'package:flutter/material.dart';
