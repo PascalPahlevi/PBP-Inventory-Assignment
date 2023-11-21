@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:pbp_inventory/models/product.dart';
+import 'package:pbp_inventory/screens/detail_page.dart';
 import 'package:pbp_inventory/widgets/left_drawer.dart';
 
 class ProductPage extends StatefulWidget {
@@ -59,30 +60,41 @@ class _ProductPageState extends State<ProductPage> {
                   );
                 } else {
                   return ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (_, index) => Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${snapshot.data![index].fields.name}",
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Text("${snapshot.data![index].fields.price}"),
-                                const SizedBox(height: 10),
-                                Text(
-                                    "${snapshot.data![index].fields.description}")
-                              ],
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (_, index) => GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                DetailPage(product: snapshot.data![index]),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${snapshot.data![index].fields.name}",
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ));
+                            const SizedBox(height: 10),
+                            Text("${snapshot.data![index].fields.price}"),
+                            const SizedBox(height: 10),
+                            Text("${snapshot.data![index].fields.description}")
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
                 }
               }
             }));
