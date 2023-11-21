@@ -913,7 +913,96 @@ class _ProductPageState extends State<ProductPage> {
   }
 }
 ```
+__Create a detail page for each item listed on the Item list page.__ <br>
+__This page can be accessed by tapping on any item on the Item list page.__ <br>
+__Display all attributes of your item model on this page.__ <br>
+__Add a button to return to the item list page.__ <br>
 
+To begin with, I had to create a new dart file which I named 'detail_page.dart'. This dart file will require all the attribute that will be displayed when the item is tapped. The code for this file is shown below:
+```py
+import 'package:flutter/material.dart';
+import 'package:pbp_inventory/models/product.dart'; // Import the model used for the item
+
+class DetailPage extends StatelessWidget {
+  final Product product; // Assuming Product is the model class for items
+
+  const DetailPage({Key? key, required this.product}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Item Detail'),
+        backgroundColor: Colors.indigo,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Name: ${product.fields.name}',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Price: ${product.fields.price}',
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Description: ${product.fields.description}',
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+Afterwards. to implement the ability to tap the item and redirect the user to the detail page, a few additions were done to the 'list_product.dart' file as seen below:
+```py
+return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (_, index) => GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                DetailPage(product: snapshot.data![index]),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${snapshot.data![index].fields.name}",
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text("${snapshot.data![index].fields.price}"),
+                            const SizedBox(height: 10),
+                            Text("${snapshot.data![index].fields.description}")
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+```
+The Listview.builder was slightly altered so that when the item is tapped, it will redirect the user to the detail page showing all the item's attirbutes.
 
 
 
